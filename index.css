@@ -1,0 +1,22 @@
+.taschenrechner {
+  display: grid;
+  grid-template-columns: 50px 50px 50px 50px 50px;
+  grid-template-rows: 50px 50px 50px 50px 50px;
+  justify-content: center;
+}
+
+.input {
+  grid-column: span 5;
+}
+.ans {
+  grid-column: span 1;
+}
+.istgleich {
+  grid-row: span 2;
+}
+.plus {
+  grid-row: span 2;
+}
+.minus {
+  grid-row: span 2;
+}

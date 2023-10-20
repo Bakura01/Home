@@ -149,7 +149,7 @@ for (let i = 0; i < 200; i += 10) {
 
 /* aufgabe 19 */
 /* let rechteck = document.querySelector(".rechteck");
-let string = "";
+letrechnung = "";
 for (let s = 0; s < 8; s++) {
   for (let l = 0; l < 8; l++) {
     string = string + "* ";
@@ -523,6 +523,8 @@ let plu = document.querySelector(".plus");
 let min = document.querySelector(".minus");
 let mal = document.querySelector(".mal");
 let div = document.querySelector(".geteilt");
+let reset = document.querySelector(".reset");
+let ans = document.querySelector(".ans");
 
 let isfertig = false;
 let modeon = false;
@@ -531,91 +533,85 @@ let input = document.querySelector(".input");
 let Zustand2 = false;
 let value = "";
 input.value = value;
+let n1fertig = false;
+let result = 0;
 
-let n2 = 0;
-let mode = 0;
-let n1 = 0;
+function taschenrechner(rechnung) {
+  console.log(rechnung);
+  let n1fertig = false;
+  let operator2 = "";
+  let mode = "";
+  let operator1 = "";
 
-function taschenrechner(string) {
-  for (let a = 0; a < string.length; a++) {
-    if (string[a] !== "+" || "-" || "*" || "/" || "=") {
-      n1 = n1 + string[a];
-    }
-  }
-  for (let b = 0; b < string.length; b++) {
-    if (string[a] !== "+" || "-" || "*" || "/" || "=") {
-      n2 = n2 + string[a];
-    }
-  }
-  for (let i = 0; i < string.length; i++) {
-    if (string[i] === string[i] && !Zustand2) {
-      n1 = n1 + +string[i];
-    }
+  for (let i = 0; i < rechnung.length; i++) {
+    console.log({ n1fertig: n1fertig, display: rechnung[i] });
 
-    if (string[i] === "+" || "-" || "*" || "/") {
-      Zustand2 = true;
-      if (string[i] === "+") {
-        mode = "+";
-      } else if (string[i] === "-") {
-        mode = "-";
-      } else if (string[i] === "*") {
-        mode = "*";
-      } else if (string[i] === "/") {
-        mode = "/";
+    if (!n1fertig) {
+      if (
+        rechnung[i] === "+" ||
+        rechnung[i] === "-" ||
+        rechnung[i] === "*" ||
+        rechnung[i] === "/"
+      ) {
+        mode = rechnung[i];
+        n1fertig = true;
+        console.log({ mode: mode });
+      } else if (rechnung[i] === "=") {
+        input.value = input.value + operator1;
+      } else {
+        operator1 = operator1 + (rechnung[i] + "");
+        console.log({ operator1: operator1, n1fertig: n1fertig });
       }
-    }
-    if (string[i] === isnumber(string[i]) && Zustand2) {
-      n2 = n2 + +string[i];
-    }
-    if (string[i] === "=") {
-      if (mode == "+") {
-        result = +n1 + +n2;
-        output.innerText = result;
-      } else if (mode == "-") {
-        result = +n1 - +n2;
-        output.innerText = result;
-      } else if (mode == "*") {
-        result = +n1 * +n2;
-        output.innerText = result;
-      } else if (mode == "/") {
-        result = +n1 / +n2;
-        output.innerText = result;
+    } else if (n1fertig && rechnung[i] !== "=") {
+      operator2 = operator2 + (rechnung[i] + "");
+      console.log({ operator2: operator2 });
+    } else if (n1fertig && rechnung[i] === "=") {
+      switch (mode) {
+        case "+":
+          result = +operator1 + +operator2;
+
+          input.value = input.value + result;
+          break;
+        case "-":
+          result = +operator1 - +operator2;
+
+          input.value = input.value + result;
+          break;
+        case "*":
+          result = +operator1 * +operator2;
+
+          input.value = input.value + result;
+          break;
+        case "/":
+          result = +operator1 / +operator2;
+
+          input.value = input.value + result;
+          break;
+
+        default:
+          input.value = input.value + "Error";
+          break;
       }
     }
   }
 }
-/* function stringConverter(string) {
-  for (let i = 0; i < string.length; i++) {
-    while (string.charAt(i) === charAt(i) && !Zustand2) {
-      n1 = n1 + string.slice(i, i);
-    }
-    if (string.charAt(i) === "+" || "-" || "*" || "/") {
-      Zustand2 = true;
-      if (string.charAt(i) === "+") {
-        mode = "+";
-      } else if (string.charAt(i) === "-") {
-        mode = "-";
-      } else if (string.charAt(i) === "*") {
-        mode = "*";
-      } else if (string.charAt(i) === "/") {
-        mode = "/";
-      }
-      while (string.charAt(i) === isnumber(charAt(i) && Zustand2)) {
-        n2 = n2 + string.charAt(i);
-      }
-    }
-    if (string.charAt(i) === "=") {
-      return;
-    }
-  }
-} */
 
 gleich.onclick = function () {
-  if (isfertig === false) {
-    input.value = input.value + "=";
-    isfertig = true;
-    taschenrechner(document.querySelector(".input").value);
-  }
+  input.value = input.value + "=";
+  taschenrechner(document.querySelector(".input").value);
+};
+reset.onclick = function () {
+  input.value = "";
+
+  console.log({ input: input.value });
+  n1fertig = false;
+  modeon = false;
+};
+ans.onclick = function () {
+  input.value = result;
+  console.log(result);
+  n1fertig = false;
+  modeon = false;
 };
 b1.onclick = function () {
   input.value = input.value + "1";
@@ -649,13 +645,13 @@ b0.onclick = function () {
 };
 
 plu.onclick = function () {
-  if (modeon === false) {
+  if (modeon === false && input.value !== "" && input.value !== "=") {
     input.value = input.value + "+";
     modeon = true;
   }
 };
 min.onclick = function () {
-  if (modeon === false) {
+  if (modeon === false && input.value !== "" && input.value !== "=") {
     input.value = input.value + "-";
     modeon = true;
   }
