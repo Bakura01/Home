@@ -525,6 +525,9 @@ let mal = document.querySelector(".mal");
 let div = document.querySelector(".geteilt");
 let reset = document.querySelector(".reset");
 let ans = document.querySelector(".ans");
+let komma = document.querySelector(".komma");
+let modulo = document.querySelector(".modulo");
+let hoch = document.querySelector(".hoch");
 
 let isfertig = false;
 let modeon = false;
@@ -551,7 +554,9 @@ function taschenrechner(rechnung) {
         rechnung[i] === "+" ||
         rechnung[i] === "-" ||
         rechnung[i] === "*" ||
-        rechnung[i] === "/"
+        rechnung[i] === "/" ||
+        rechnung[i] === "^" ||
+        rechnung[i] === "%" 
       ) {
         mode = rechnung[i];
         n1fertig = true;
@@ -587,6 +592,17 @@ function taschenrechner(rechnung) {
 
           input.value = input.value + result;
           break;
+        case "%":
+          result = +operator1 % +operator2;
+
+          input.value = input.value + result;
+          break;
+        case "^":
+         
+            result = Math.pow(operator1,operator2);
+          
+          input.value = input.value + result;
+          break;
 
         default:
           input.value = input.value + "Error";
@@ -612,6 +628,16 @@ ans.onclick = function () {
   console.log(result);
   n1fertig = false;
   modeon = false;
+  
+};
+komma.onclick = function () {
+  input.value = input.value + ".";
+};
+hoch.onclick = function () {
+  input.value = input.value + "^";
+};
+modulo.onclick = function () {
+  input.value = input.value + "%";
 };
 b1.onclick = function () {
   input.value = input.value + "1";
