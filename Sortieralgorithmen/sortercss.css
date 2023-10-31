@@ -1,0 +1,17 @@
+* {
+  box-sizing: border-box;
+}
+
+section.boxes {
+  display: grid;
+  grid-template-columns: repeat(100, 10px);
+  justify-content: center;
+  height: 50rem;
+}
+.boxes div {
+  background-color: blue;
+  border: 1px solid orangered;
+}
+.nav-bar {
+  height: 100px;
+}

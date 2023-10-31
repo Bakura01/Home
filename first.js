@@ -1,5 +1,3 @@
-
-
 /* Aufgabe 31 */
 let gleich = document.querySelector(".istgleich");
 let b1 = document.querySelector(".b1");
@@ -49,7 +47,7 @@ function taschenrechner(rechnung) {
         rechnung[i] === "*" ||
         rechnung[i] === "/" ||
         rechnung[i] === "^" ||
-        rechnung[i] === "%" 
+        rechnung[i] === "%"
       ) {
         mode = rechnung[i];
         operator1done = true;
@@ -75,8 +73,8 @@ function taschenrechner(rechnung) {
 
           input.value = input.value + result;
           break;
-          case "*":
-            result = +operator1 * +operator2;
+        case "*":
+          result = +operator1 * +operator2;
 
           input.value = input.value + result;
           break;
@@ -90,14 +88,13 @@ function taschenrechner(rechnung) {
 
           input.value = input.value + result;
           break;
-          case "^":
-         
-            result = Math.pow(operator1,operator2);
-          
+        case "^":
+          result = Math.pow(operator1, operator2);
+
           input.value = input.value + result;
           break;
 
-          default:
+        default:
           input.value = input.value + "Error";
           break;
       }
@@ -107,7 +104,7 @@ function taschenrechner(rechnung) {
 
 reset.onclick = function () {
   input.value = "";
-  
+
   console.log({ input: input.value });
   operator1done = false;
   modeon = false;
@@ -117,7 +114,6 @@ ans.onclick = function () {
   console.log(result);
   operator1done = false;
   modeon = false;
-  
 };
 komma.onclick = function () {
   input.value = input.value + ".";
@@ -188,14 +184,11 @@ gleich.onclick = function () {
   taschenrechner(document.querySelector(".input").value);
 };
 input.addEventListener("keydown", function (event) {
-  if(event.key === "Enter")
-  {
+  if (event.key === "Enter") {
     input.value = input.value + "=";
     taschenrechner(document.querySelector(".input").value);
-
   }
-  
-})
+});
 function isnumber(number) {
   if (
     number === "0" ||
@@ -208,19 +201,19 @@ function isnumber(number) {
     "7" ||
     "8" ||
     "9"
-    ) {
-      return true;
-    } else {
-      return false;
-    }
+  ) {
+    return true;
+  } else {
+    return false;
   }
-  
-  function isletter(string,index) {
-    switch (string[index]) {
-      case "A":
+}
+
+function isletter(string, index) {
+  switch (string[index]) {
+    case "A":
       isRight = true;
       break;
-      case "B":
+    case "B":
       isRight = true;
 
       break;

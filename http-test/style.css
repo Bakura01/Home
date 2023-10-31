@@ -1,0 +1,12 @@
+.pokemon-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2px;
+}
+div {
+  background-color: #e3c333;
+
+  text-align: center;
+  border: 2px solid #000;
+}
