@@ -48,7 +48,9 @@ document.querySelector(".slider").oninput = () => {
     let sliderValue = document.querySelector(".slider").value;
     collection.push(box);
     box.setAttribute("class", `box${i}`);
-    box.style.height = `${(random / sliderValue + 0.02) * 90}%`;
+    let randomValue = `${(random / sliderValue + 0.02) * 90}%`;
+    box.style.height = randomValue;
+    box.value = randomValue;
     document.querySelector(".boxes").appendChild(box);
     document.querySelector(
       ".boxes"
@@ -85,36 +87,65 @@ async function BubbleSort(collection) {
 
 /* QuickSort */
 
-function quickSort(collection) {
+/* async function quickSort(collection) {
   if (collection.length <= 1) {
     return collection;
   }
   let pivot = collection[0];
+  pivot.style.backgroundColor = "green";
   let collectionLeft = [];
   let collectionRight = [];
   console.log({ pivot: pivot });
   for (let i = 1; i < collection.length; i++) {
-    if (pivot.style.height > collection[i].style.height) {
-      collectionLeft.push(collection[i]);
+    let next = collection[i];
+    if (
+      +pivot.style.height.replace("%", "") > +next.style.height.replace("%", "")
+    ) {
+      next.style.backgroundColor = "red";
+      collectionLeft.push(next);
       console.log({ leftarray: collectionLeft });
     } else {
-      collectionRight.push(collection[i]);
+      collectionRight.push(next);
       console.log({ rightarray: collectionRight });
     }
   }
   console.log({ array: collection });
+  pivot.style.backgroundColor = "blue";
 
-  return quickSort(collectionLeft).concat(pivot, quickSort(collectionRight));
+  const returnValue = await delay(delay(quickSort(collectionLeft)).concat(
+    pivot,
+     delay(quickSort(collectionRight))));
+
+  return  
+  );
 }
-
+ */
 let sort = document.querySelector(".start-sort");
 document.querySelector(".delay-duration").oninput = () => {
   document.querySelector(".output-delay").innerText =
     document.querySelector(".delay-duration").value;
 };
-sort.onclick = () => {
-  collection = quickSort(collection);
-  for (let i = 0; i < document.querySelector(".slider").value; i++) {
-    document.querySelector("boxes").appendChild(collection[i]);
+function mergeSort(collection) {
+  let pivot = Math.floor(collection.length / 2);
+  let left = collection.slice(0, pivot);
+  let right = collection.slice(pivot, collection.length);
+
+  return mergeArrays(mergeSort(left), mergeSort(right));
+}
+function mergeArrays(left, right) {
+  let result = [];
+  while(left.lenght && right.lenght){
+
+    if(+left[i].style.height.replace("%","") > +right[i].style.height.replace("%",""))
+    {
+
+    } else 
+
   }
+    
+  
+}
+sort.onclick = () => {
+  collection = mergeSort(collection);
+  console.log({ ende: collection });
 };
